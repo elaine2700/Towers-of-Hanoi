@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Disk : MonoBehaviour
 {
-    public int place = 1;
+    public int value = 1;
 
-    private void Start()
-    {
-        //todo depending of place, set the size. or get respective 3d model.
-    }
+    
 }
