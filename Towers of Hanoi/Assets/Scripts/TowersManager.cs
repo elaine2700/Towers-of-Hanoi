@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class MovEvent : UnityEvent<int>
+{
+}
 
 /// <summary>
 ///The game finishes when the right stack count is the same as numOfDisks.
@@ -17,16 +23,11 @@ public class TowersManager : MonoBehaviour
     [SerializeField] Tower toTower = null;
     [SerializeField] Disk diskToChange = null;
 
+    public MovEvent newMovement;
+
     private void Start()
     {
-        Tower[] towerList = FindObjectsOfType<Tower>();
-        foreach(Tower tower in towerList)
-        {
-            towers.Add(tower);
-        }
-
         SpawnDisks();
-
     }
 
     private void Update()
@@ -103,6 +104,7 @@ public class TowersManager : MonoBehaviour
         while (i > 0)
         {
             Disk diskObject = Instantiate<Disk>(diskPrefab, transform.position, Quaternion.identity);
+            // toDo add a Delay between Spawn disk
             diskObject.transform.name = $"{diskObject.transform.name} {i}";
             diskObject.value = i;
             towers[0].AddToStack(diskObject);
@@ -121,6 +123,7 @@ public class TowersManager : MonoBehaviour
         toTower = null;
         numUserMovements++;
         CheckRightStack();
+        newMovement.Invoke(numUserMovements);
     }
 
     void CheckRightStack()
