@@ -9,6 +9,7 @@ using UnityEngine;
 public class TowersManager : MonoBehaviour
 {
     [SerializeField] int numOfDisks = 3;
+    public int NumOfDisks { get { return numOfDisks; } }
     [SerializeField] Disk diskPrefab;
     [SerializeField] List<Tower> towers = new List<Tower>();
     int numUserMovements = 0;
@@ -105,6 +106,7 @@ public class TowersManager : MonoBehaviour
             diskObject.transform.name = $"{diskObject.transform.name} {i}";
             diskObject.value = i;
             towers[0].AddToStack(diskObject);
+            diskObject.MovePosition(towers[0]);
             i--;
         }
         
@@ -113,6 +115,7 @@ public class TowersManager : MonoBehaviour
     void ChangeTower(Disk disk, Tower newTower)
     {
         newTower.AddToStack(disk);
+        disk.MovePosition(newTower);
         fromTower = null;
         diskToChange = null;
         toTower = null;

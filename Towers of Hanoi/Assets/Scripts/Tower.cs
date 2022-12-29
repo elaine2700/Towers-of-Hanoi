@@ -8,6 +8,7 @@ public class Tower : MonoBehaviour
     // This list adds elements to the end and pops the last element.
     // Like a Stack but in reverse.
     [SerializeField] List<Disk> diskStack;
+    public Transform fallPoint;
 
     private void Start()
     {
